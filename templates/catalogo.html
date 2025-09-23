@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Catalogo{% endblock %}
+
+{% block content %}
+
+ <h1>Productos</h1>
+<a href="/agregar">Agregar Producto</a>
+<center>
+ <table border="1" width="300" height="200">
+   {% for p in productos %}
+    <TR>
+        <td>
+         <img src="{{ url_for('static', filename='uploads/' + p.imagen) }}" width="100">
+        </td>
+        <td></td>
+         <td>{{ p.nombre_producto }} - ${{ p.precio }}</td>
+
+         <td><a href="/carrito/{{p.idProducto}}">Agregar al carrito</a></td>
+      </TR>
+          
+    
+   {% endfor %}
+</table>
+<a href="/mostrar_carrito">Ver carrito</a>
+
+</center>
+
+{% endblock %}

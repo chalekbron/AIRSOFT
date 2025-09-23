@@ -1,0 +1,8 @@
+<h1>Factura</h1>
+<ul>
+  {% for p in carrito %}
+    <li>{{ p.nombre }} - ${{ p.precio }}</li>
+  {% endfor %}
+</ul>
+<h3>Total: ${{ total }}</h3>
+<p>¡Gracias por tu compra!</p>

@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+
+<div class="container mb-4">
+
+    <h3>Gestion de Usuarios</h3>
+    <table class="table table-striped table-dark">
+        <thead class="table-info">
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Username</th>
+                <th>Rol</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for u in usuarios %}
+            <tr>
+                <td>{{ u ['idUsuario']}}</td>
+                <td>{{ u ['nombre']}}</td>
+                <td>{{ u ['apellido']}}</td>
+                <td>{{ u ['username']}}</td>
+                <td>{{ u ['nombreRol']}}</td>
+                <td>
+                    <button class="btn btn-warning btn-sm" data-bs-toggle="modal"
+                        data-bs-target="#ModalEdit{{ u ['idUsuario']}}">Editar</button>
+
+                    <!-- The Modal Edit -->
+                    <div class="modal" id="ModalEdit{{ u ['idUsuario']}}" tabindex="-1" role="dialog"
+                        aria-labelledby="EditModalLabel {{u['idUsuario']}}" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <form action="{{url_for('actualizar', id= u['idUsuario'])}}" method="POST">
+                                <div class="modal-content">
+                            
+                                    <!-- Modal Header -->
+                                    <div class="modal-header">
+                                        <h4 class="modal-title" id="EditModalLabel {{u['idUsuario']}}">Editar usuario:
+                                            {{u['nombre']}} {{u['apellido']}}</h4>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                    </div>
+
+                                    <!-- Modal body -->
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label class="titulo" for="nombre {{ u['idUsuario']}}">Nombre</label>
+                                            <input type="text" class="form-control" name="nombre"
+                                                id="nombre{{ u['idUsuario']}}" value="{{ u['nombre']}}" required>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="titulo" for="apellido {{ u['idUsuario']}}">Apellido</label>
+                                            <input type="text" class="form-control" name="apellido"
+                                                id="apellido{{ u['idUsuario']}}" value="{{ u['apellido']}}" required>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="titulo" for="correo {{ u['idUsuario']}}">Correo electronico</label>
+                                            <input type="email" class="form-control" name="correo"
+                                                id="correo{{ u['idUsuario']}}" value="{{ u['username']}}" required>
+                                        </div>
+
+                                         <div class="form-group">
+                                            <label class="titulo" for="rol {{ u['idUsuario']}}">Rol</label>
+                                             <select name="rol" class="form-select" id="rol{{ u['idUusario']}}">
+                                                <option value="1" {% if u['idRol'] == 1 %}selected{% endif %}>Admin</option>
+                                                <option value="2" {% if u['idRol'] == 2 %}selected{% endif %}>Usuario</option>
+                                             </select>
+                                        </div>
+                                    </div>
+
+
+                                    <!-- Modal footer -->
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                                        <button type="button" class="btn btn-danger"
+                                            data-bs-dismiss="modal">Close</button>
+                                    </div>
+
+                                </div>
+                            </form>
+                            </div>
+                      </div>
+                    </div>
+                    <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#ModalEliminar {{u['idUusario']}}">Eliminar</button>
+
+                    <!-- The Modal -->
+                    <div class="modal" id="ModalEliminar{{u['idUusario']}}" tabindex="-1" role="dialog" aria-labelledby="modalLabel{{u['idUusario']}}" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                             
+
+                                <!-- Modal Header -->
+                                <div  class="modal-header">
+                                    <h4 class="titulo" class="modal-title" id="modalLabel{{u['idUusario']}}">Confirmar Eliminacion</h4>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+
+                                <!-- Modal body -->
+                                <div class="titulo" class="modal-body">
+                                    ¿Estas seguro de que quieres eliminar el usuario <strong> {{u['nombre']}} {{u['apellido']}}?</strong>
+                                </div>
+
+                                <!-- Modal footer -->
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secundary" data-bs-dismiss="modal">Cancelar</button>
+                                    <a href="{{url_for('eliminar', id= u['idUsuario'])}}" class="btn btn-danger">Eliminar</a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

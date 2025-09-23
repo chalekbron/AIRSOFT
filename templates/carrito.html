@@ -1,0 +1,10 @@
+<h1>Carrito de compras</h1>
+<ul>
+  {% for p in carrito %}
+  <li>{{ p.nombre_producto }} - ${{ p.precio }}</li>
+  {% endfor %}
+</ul>
+<h3>Total: ${{ total }}</h3>
+<a href="/">Agregar Otro Producto</a>
+<hr>
+<a href="/factura">Finalizar pedido</a>

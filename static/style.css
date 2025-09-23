@@ -1,0 +1,18 @@
+.navbar {
+    background-color: blueviolet;
+    border: none;
+}
+
+.navbar-brand, .nav > li > a {
+    color: #fcf8f8 !important; 
+
+}
+.nav > li > a:hover {
+   background-color:#14bfda;
+   color: #faf9f9 !important;
+}
+
+.titulo
+{
+    color: blue;
+}
