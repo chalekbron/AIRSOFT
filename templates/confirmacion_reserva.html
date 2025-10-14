@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block title %}Confirmación de Reserva{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-success text-white text-center">
+                    <h2 class="mb-0">✅ Reserva Confirmada</h2>
+                </div>
+                <div class="card-body">
+                    <div class="text-center mb-4">
+                        <i class="fas fa-check-circle text-success" style="font-size: 4rem;"></i>
+                        <h3 class="text-success mt-3">¡Gracias por tu reserva!</h3>
+                        <p class="lead">Tu reserva ha sido procesada exitosamente</p>
+                    </div>
+
+                    <div class="reserva-detalles">
+                        <h5 class="text-primary mb-3">Detalles de tu Reserva:</h5>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p><strong>Número de Reserva:</strong> <span class="text-info">#{{ reserva.idReserva }}</span></p>
+                                <p><strong>Nombre:</strong> {{ reserva.nombre_completo }}</p>
+                                <p><strong>Email:</strong> {{ reserva.email }}</p>
+                                <p><strong>Teléfono:</strong> {{ reserva.telefono }}</p>
+                            </div>
+                            <div class="col-md-6">
+                                <p><strong>Destino:</strong> {{ reserva.destino }}</p>
+                                <p><strong>Tipo de Viaje:</strong> {{ reserva.tipo_viaje }}</p>
+                                <p><strong>Fechas:</strong> {{ reserva.fecha_salida }} al {{ reserva.fecha_regreso }}</p>
+                                <p><strong>Pasajeros:</strong> {{ reserva.adultos }} adultos, {{ reserva.ninos }} niños</p>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 p-3 bg-light rounded">
+                            <h6 class="text-primary">Próximos Pasos:</h6>
+                            <ol class="small">
+                                <li>Recibirás un email de confirmación con todos los detalles</li>
+                                <li>Nuestro equipo se contactará contigo en 24 horas hábiles</li>
+                                <li>Realiza el pago inicial para confirmar tu viaje</li>
+                                <li>Revisa tu documentación requerida</li>
+                            </ol>
+                        </div>
+
+                        <div class="alert alert-info mt-4">
+                            <h6>📞 Contacto de Emergencia:</h6>
+                            <p class="mb-1">Si tienes alguna pregunta, contáctanos:</p>
+                            <p class="mb-0"><strong>Teléfono:</strong> +1 (555) 123-4567</p>
+                            <p class="mb-0"><strong>Email:</strong> reservas@airsoft.com</p>
+                        </div>
+                    </div>
+
+                    <div class="text-center mt-4">
+                        <a href="{{url_for('catalogo')}}" class="btn btn-primary me-2">
+                            🏠 Volver al Catálogo
+                        </a>
+                        <a href="{{url_for('reservas')}}" class="btn btn-outline-primary">
+                            ✈️ Nueva Reserva
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

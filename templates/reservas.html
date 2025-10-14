@@ -1,0 +1,181 @@
+{% extends 'base.html' %}
+
+{% block title %}Reservas de Viajes{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="text-primary mb-4">✈️ Reserva tu Viaje</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">Formulario de Reserva</h4>
+                </div>
+                <div class="card-body">
+                    <form action="{{url_for('procesar_reserva')}}" method="POST">
+                        <div class="row g-3">
+                            <!-- Información Personal -->
+                            <div class="col-md-6">
+                                <label for="nombre_completo" class="form-label">Nombre Completo *</label>
+                                <input type="text" class="form-control" id="nombre_completo" name="nombre_completo" 
+                                       value="{{ session.get('usuario', '') }}" required>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <label for="email" class="form-label">Email *</label>
+                                <input type="email" class="form-control" id="email" name="email" required>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <label for="telefono" class="form-label">Teléfono *</label>
+                                <input type="tel" class="form-control" id="telefono" name="telefono" required>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <label for="documento" class="form-label">Documento de Identidad *</label>
+                                <input type="text" class="form-control" id="documento" name="documento" required>
+                            </div>
+
+                            <!-- Selección de Viaje -->
+                            <div class="col-12">
+                                <hr>
+                                <h5 class="text-primary">Selecciona tu Viaje</h5>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <label for="id_producto" class="form-label">Paquete de Viaje *</label>
+                                <select class="form-select" id="id_producto" name="id_producto" required>
+                                    <option value="">Selecciona un destino</option>
+                                    {% for producto in productos %}
+                                    <option value="{{ producto.idProducto }}" data-precio="{{ producto.precio }}">
+                                        {{ producto.nombre_producto }} - ${{ producto.precio }}
+                                    </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <label for="tipo_viaje" class="form-label">Tipo de Viaje *</label>
+                                <select class="form-select" id="tipo_viaje" name="tipo_viaje" required>
+                                    <option value="">Selecciona tipo</option>
+                                    <option value="Solo vuelo">Solo vuelo</option>
+                                    <option value="Paquete completo">Paquete completo (Vuelo + Hotel)</option>
+                                    <option value="Todo incluido">Todo incluido</option>
+                                </select>
+                            </div>
+
+                            <!-- Fechas -->
+                            <div class="col-md-6">
+                                <label for="fecha_salida" class="form-label">Fecha de Salida *</label>
+                                <input type="date" class="form-control" id="fecha_salida" name="fecha_salida" 
+                                       min="{{ hoy }}" required>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <label for="fecha_regreso" class="form-label">Fecha de Regreso *</label>
+                                <input type="date" class="form-control" id="fecha_regreso" name="fecha_regreso" 
+                                       min="{{ hoy }}" required>
+                            </div>
+
+                            <!-- Pasajeros -->
+                            <div class="col-md-4">
+                                <label for="adultos" class="form-label">Adultos *</label>
+                                <select class="form-select" id="adultos" name="adultos" required>
+                                    <option value="1">1 Adulto</option>
+                                    <option value="2" selected>2 Adultos</option>
+                                    <option value="3">3 Adultos</option>
+                                    <option value="4">4 Adultos</option>
+                                    <option value="5">5 Adultos</option>
+                                </select>
+                            </div>
+                            
+                            <div class="col-md-4">
+                                <label for="ninos" class="form-label">Niños</label>
+                                <select class="form-select" id="ninos" name="ninos">
+                                    <option value="0">0 Niños</option>
+                                    <option value="1">1 Niño</option>
+                                    <option value="2">2 Niños</option>
+                                    <option value="3">3 Niños</option>
+                                </select>
+                            </div>
+                            
+                            <div class="col-md-4">
+                                <label for="clase" class="form-label">Clase</label>
+                                <select class="form-select" id="clase" name="clase">
+                                    <option value="Económica">Económica</option>
+                                    <option value="Ejecutiva">Ejecutiva</option>
+                                    <option value="Primera Clase">Primera Clase</option>
+                                </select>
+                            </div>
+
+                            <!-- Información Adicional -->
+                            <div class="col-12">
+                                <label for="comentarios" class="form-label">Comentarios o Requerimientos Especiales</label>
+                                <textarea class="form-control" id="comentarios" name="comentarios" 
+                                         rows="3" placeholder="Alergias alimenticias, necesidades especiales, etc."></textarea>
+                            </div>
+
+                            <!-- Botón de Envío -->
+                            <div class="col-12">
+                                <div class="d-grid mt-4">
+                                    <button type="submit" class="btn btn-primary btn-lg">
+                                        📋 Realizar Reserva
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Panel de Información -->
+        <div class="col-md-4">
+            <div class="card shadow-lg border-0 sticky-top" style="top: 20px;">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0">💡 Información Importante</h5>
+                </div>
+                <div class="card-body">
+                    <h6>Políticas de Reserva:</h6>
+                    <ul class="small">
+                        <li>Las reservas deben realizarse con al menos 15 días de anticipación</li>
+                        <li>Se requiere pago del 50% para confirmar la reserva</li>
+                        <li>Cancelaciones con 30 días de anticipación: reembolso del 80%</li>
+                        <li>Cancelaciones con 15 días de anticipación: reembolso del 50%</li>
+                    </ul>
+                    
+                    <h6 class="mt-3">Documentación Requerida:</h6>
+                    <ul class="small">
+                        <li>Pasaporte vigente (para viajes internacionales)</li>
+                        <li>Visas según el destino</li>
+                        <li>Seguro de viaje recomendado</li>
+                    </ul>
+                    
+                    <div class="alert alert-warning mt-3 small">
+                        <strong>⚠️ Nota:</strong> Los precios pueden variar según temporada y disponibilidad.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Validación de fechas
+    const fechaSalida = document.getElementById('fecha_salida');
+    const fechaRegreso = document.getElementById('fecha_regreso');
+    
+    fechaSalida.addEventListener('change', function() {
+        if (this.value) {
+            fechaRegreso.min = this.value;
+        }
+    });
+});
+</script>
+{% endblock %}

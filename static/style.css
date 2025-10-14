@@ -11,8 +11,898 @@
    background-color:#14bfda;
    color: #faf9f9 !important;
 }
-
-.titulo
+.papu
 {
+    color: #2a09e0;
+}
+.subtitulo
+{
+    color: #000000;
+}
+
+.navbar {
+    background-color: blueviolet;
+    border: none;
+}
+
+.navbar-brand, .nav > li > a {
+    color: #fcf8f8 !important; 
+}
+
+.nav > li > a:hover {
+   background-color:#14bfda;
+   color: #faf9f9 !important;
+}
+
+.titulo {
     color: blue;
+}
+
+/* Estilos personalizados para el carrusel */
+.carousel-section {
+    padding: 20px 0;
+}
+
+.carousel-container {
+    position: relative;
+    margin: 0 auto;
+    max-width: 1200px;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.carousel-item img {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 3px solid #fff;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.5s ease;
+}
+
+.carousel-item:hover img {
+    transform: scale(1.02);
+}
+
+.carousel-caption {
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+    padding: 15px;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    backdrop-filter: blur(5px);
+}
+
+.carousel-caption h3 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    color: #fff;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+}
+
+.carousel-caption p {
+    color: #f8f9fa;
+    font-size: 1.1rem;
+}
+
+.login-btn-container {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 100;
+}
+
+.btn-login {
+    background: linear-gradient(45deg, #ff7e5f, #feb47b);
+    border: none;
+    border-radius: 50px;
+    padding: 12px 25px;
+    color: white;
+    font-weight: bold;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-login:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 7px 20px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(45deg, #feb47b, #ff7e5f);
+    color: white;
+    text-decoration: none;
+}
+
+.carousel-control-prev, .carousel-control-next {
+    width: 50px;
+    height: 50px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+.carousel-control-prev {
+    left: 15px;
+}
+
+.carousel-control-next {
+    right: 15px;
+}
+
+.carousel-control-prev:hover, .carousel-control-next:hover {
+    opacity: 1;
+}
+
+.carousel-indicators li {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin: 0 5px;
+}
+
+/* Estilos para la sección de información */
+.container.mt-5 {
+    background-color: #f8f9fa;
+    padding: 30px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+}
+
+.btn-primary {
+    background: linear-gradient(45deg, #14bfda, #0f9dbc);
+    border: none;
+    padding: 12px 30px;
+    font-weight: bold;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(45deg, #0f9dbc, #0d89a3);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    .carousel-item img {
+        height: 350px;
+    }
+    
+    .carousel-caption h3 {
+        font-size: 1.4rem;
+    }
+    
+    .carousel-caption p {
+        font-size: 0.9rem;
+    }
+    
+    .btn-login {
+        padding: 8px 16px;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .carousel-item img {
+        height: 300px;
+    }
+    
+    .carousel-caption {
+        padding: 10px;
+        bottom: 15px;
+        width: 90%;
+    }
+    
+    .carousel-caption h3 {
+        font-size: 1.2rem;
+        margin-bottom: 5px;
+    }
+    
+    .carousel-caption p {
+        font-size: 0.8rem;
+        margin-bottom: 0;
+    }
+    
+    .login-btn-container {
+        top: 10px;
+        right: 10px;
+    }
+    
+    .container.mt-5 {
+        padding: 20px 15px;
+    }
+}
+
+body {
+    background: linear-gradient(to bottom, #000000, #1a1a1a);
+    color: #ffffff;
+    min-height: 100vh;
+}
+
+.carousel-container {
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 15px;
+    border-radius: 12px;
+}
+body {
+    background-color: #000000;
+    color: #f0f0f0;
+}
+
+
+.titulo, .lead {
+    color: #ffffff !important;
+}
+
+
+.container.mt-5 {
+    background-color: #111111;
+    border: 1px solid #333333;
+}
+.airsoft-title {
+    color: #fbfbfc !important; /* Azul brillante */
+    font-size: 3.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    margin-bottom: 20px;
+    font-family: 'Arial Black', 'Arial Bold', Gadget, sans-serif;
+}
+
+.travel-hero {
+    background: linear-gradient(135deg, #0d6efd 0%, #0dcaf0 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.travel-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" fill="%23ffffff" opacity="0.1"><polygon points="1000,100 1000,0 0,100"/></svg>');
+    background-size: cover;
+}
+
+/* Tarjetas de Viaje */
+.travel-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 15px;
+    overflow: hidden;
+    border: none;
+}
+
+.travel-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 1rem 3rem rgba(0,0,0,.175) !important;
+}
+
+.travel-image {
+    height: 250px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.travel-card:hover .travel-image {
+    transform: scale(1.05);
+}
+
+.travel-badge {
+    border-radius: 20px;
+    padding: 8px 12px;
+}
+
+/* Precios */
+.travel-price {
+    color: #198754;
+    font-weight: 700;
+}
+
+/* Rating */
+.travel-rating {
+    font-size: 0.9rem;
+}
+
+/* Botones de Viaje */
+.travel-reserve-btn {
+    border-radius: 10px;
+    padding: 12px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.travel-reserve-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(13, 110, 253, 0.4);
+}
+
+.travel-favorite-btn {
+    border-radius: 10px;
+    padding: 12px;
+    transition: all 0.3s ease;
+}
+
+.travel-favorite-btn:hover {
+    background-color: #0d6efd;
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Filtros */
+.travel-filter {
+    border-radius: 12px;
+    border: 2px solid #e9ecef;
+    transition: all 0.3s ease;
+}
+
+.travel-filter:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
+.travel-search-btn {
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.travel-search-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 193, 7, 0.4);
+}
+
+/* Botón Agregar Paquete */
+.travel-add-btn {
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.travel-add-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(25, 135, 84, 0.4);
+}
+
+/* Categorías */
+.category-card {
+    transition: all 0.3s ease;
+    background: white;
+    border: 2px solid transparent;
+}
+
+.category-card:hover {
+    border-color: #0d6efd;
+    transform: translateY(-8px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.category-icon {
+    transition: transform 0.3s ease;
+}
+
+.category-card:hover .category-icon {
+    transform: scale(1.1);
+}
+
+/* Información del Paquete */
+.package-info {
+    border-top: 1px solid #e9ecef;
+    border-bottom: 1px solid #e9ecef;
+    padding: 1rem 0;
+}
+
+/* Call to Action */
+.travel-cta {
+    background: linear-gradient(135deg, #0d6efd 0%, #6610f2 100%) !important;
+    position: relative;
+    overflow: hidden;
+}
+
+.travel-cta::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" fill="%23ffffff" opacity="0.1"><circle cx="200" cy="50" r="30"/><circle cx="600" cy="20" r="20"/><circle cx="800" cy="70" r="25"/></svg>');
+}
+
+.travel-contact-btn,
+.travel-chat-btn {
+    border-radius: 12px;
+    padding: 12px 24px;
+    transition: all 0.3s ease;
+}
+
+.travel-contact-btn:hover,
+.travel-chat-btn:hover {
+    transform: translateY(-2px);
+}
+
+/* Botón del Carrito */
+.travel-cart-btn {
+    border-radius: 15px;
+    transition: all 0.3s ease;
+}
+
+.travel-cart-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(255, 193, 7, 0.4);
+}
+
+/* Estadísticas del Hero */
+.hero-stats {
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,.15);
+    transition: transform 0.3s ease;
+}
+
+.hero-stats:hover {
+    transform: scale(1.05);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .travel-hero h1 {
+        font-size: 2.5rem;
+    }
+    
+    .travel-card {
+        margin-bottom: 2rem;
+    }
+    
+    .category-card {
+        margin-bottom: 1rem;
+    }
+    
+    .travel-filter {
+        margin-bottom: 1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .travel-hero h1 {
+        font-size: 2rem;
+    }
+    
+    .travel-image {
+        height: 200px;
+    }
+    
+    .travel-price {
+        font-size: 1.25rem;
+    }
+}
+
+/* Animaciones */
+@keyframes float {
+    0%, 100% { 
+        transform: translateY(0px); 
+    }
+    50% { 
+        transform: translateY(-10px); 
+    }
+}
+
+.floating {
+    animation: float 3s ease-in-out infinite;
+}
+
+/* Efectos de hover para todo el catálogo */
+.hover-lift:hover {
+    transform: translateY(-5px);
+    transition: transform 0.3s ease;
+}
+
+.hover-scale {
+    transition: transform 0.3s ease;
+}
+
+.hover-scale:hover {
+    transform: scale(1.02);
+}
+/* Estilos para el catálogo de viajes mejorado */
+
+/* Estilos generales para tarjetas de viaje */
+.travel-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 15px;
+    overflow: hidden;
+    border: none;
+}
+
+.travel-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 1rem 3rem rgba(0,0,0,.175) !important;
+}
+
+.travel-image {
+    height: 250px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.travel-card:hover .travel-image {
+    transform: scale(1.05);
+}
+
+.travel-badge {
+    border-radius: 20px;
+    padding: 8px 12px;
+}
+
+/* Precios */
+.travel-price {
+    color: #198754;
+    font-weight: 700;
+}
+
+/* Rating */
+.travel-rating {
+    font-size: 0.9rem;
+}
+
+/* Botones de Viaje */
+.travel-reserve-btn {
+    border-radius: 10px;
+    padding: 12px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.travel-reserve-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(13, 110, 253, 0.4);
+}
+
+.travel-favorite-btn {
+    border-radius: 10px;
+    padding: 12px;
+    transition: all 0.3s ease;
+}
+
+.travel-favorite-btn:hover {
+    background-color: #0d6efd;
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Filtros */
+.travel-filter {
+    border-radius: 12px;
+    border: 2px solid #e9ecef;
+    transition: all 0.3s ease;
+}
+
+.travel-filter:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
+.travel-search-btn {
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.travel-search-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 193, 7, 0.4);
+}
+
+/* Botón Agregar Paquete */
+.travel-add-btn {
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.travel-add-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(25, 135, 84, 0.4);
+}
+
+/* Categorías */
+.category-card {
+    transition: all 0.3s ease;
+    background: white;
+    border: 2px solid transparent;
+}
+
+.category-card:hover {
+    border-color: #0d6efd;
+    transform: translateY(-8px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.category-icon {
+    transition: transform 0.3s ease;
+}
+
+.category-card:hover .category-icon {
+    transform: scale(1.1);
+}
+
+/* Información del Paquete */
+.package-info {
+    border-top: 1px solid #e9ecef;
+    border-bottom: 1px solid #e9ecef;
+    padding: 1rem 0;
+}
+
+/* Call to Action */
+.travel-cta {
+    background: linear-gradient(135deg, #0d6efd 0%, #6610f2 100%) !important;
+    position: relative;
+    overflow: hidden;
+}
+
+.travel-cta::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" fill="%23ffffff" opacity="0.1"><circle cx="200" cy="50" r="30"/><circle cx="600" cy="20" r="20"/><circle cx="800" cy="70" r="25"/></svg>');
+}
+
+.travel-contact-btn,
+.travel-chat-btn {
+    border-radius: 12px;
+    padding: 12px 24px;
+    transition: all 0.3s ease;
+}
+
+.travel-contact-btn:hover,
+.travel-chat-btn:hover {
+    transform: translateY(-2px);
+}
+
+/* Botón del Carrito */
+.travel-cart-btn {
+    border-radius: 15px;
+    transition: all 0.3s ease;
+}
+
+.travel-cart-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(255, 193, 7, 0.4);
+}
+
+/* Estadísticas del Hero */
+.hero-stats {
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,.15);
+    transition: transform 0.3s ease;
+}
+
+.hero-stats:hover {
+    transform: scale(1.05);
+}
+
+/* Estilos para el carrito mejorado */
+.cart-item-image {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.cart-summary-card {
+    position: sticky;
+    top: 20px;
+}
+
+/* Estilos para la factura */
+.invoice-header {
+    background: linear-gradient(135deg, #198754 0%, #20c997 100%);
+}
+
+.invoice-details {
+    border-left: 3px solid #0d6efd;
+    padding-left: 15px;
+}
+
+/* Estilos para el formulario de agendamiento */
+.booking-form-section {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .travel-hero h1 {
+        font-size: 2.5rem;
+    }
+    
+    .travel-card {
+        margin-bottom: 2rem;
+    }
+    
+    .category-card {
+        margin-bottom: 1rem;
+    }
+    
+    .travel-filter {
+        margin-bottom: 1rem;
+    }
+    
+    .cart-summary-card {
+        position: static;
+        margin-top: 2rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .travel-hero h1 {
+        font-size: 2rem;
+    }
+    
+    .travel-image {
+        height: 200px;
+    }
+    
+    .travel-price {
+        font-size: 1.25rem;
+    }
+}
+
+/* Animaciones */
+@keyframes float {
+    0%, 100% { 
+        transform: translateY(0px); 
+    }
+    50% { 
+        transform: translateY(-10px); 
+    }
+}
+
+.floating {
+    animation: float 3s ease-in-out infinite;
+}
+
+ 
+.hover-lift:hover {
+    transform: translateY(-5px);
+    transition: transform 0.3s ease;
+}
+
+ 
+:root {
+    --travel-primary: #0d6efd;
+    --travel-secondary: #6c757d;
+    --travel-success: #198754;
+    --travel-warning: #ffc107;
+    --travel-danger: #dc3545;
+    --travel-info: #0dcaf0;
+    --travel-light: #f8f9fa;
+    --travel-dark: #212529;
+}
+
+ 
+.status-badge {
+    border-radius: 20px;
+    padding: 6px 12px;
+    font-weight: 600;
+}
+
+.status-available {
+    background-color: var(--travel-success);
+    color: white;
+}
+
+.status-limited {
+    background-color: var(--travel-warning);
+    color: var(--travel-dark);
+}
+
+.status-soldout {
+    background-color: var(--travel-danger);
+    color: white;
+}
+
+ 
+.travel-modal .modal-content {
+    border-radius: 15px;
+    border: none;
+}
+
+.travel-modal .modal-header {
+    background: linear-gradient(135deg, var(--travel-primary), var(--travel-info));
+    color: white;
+    border-radius: 15px 15px 0 0;
+}
+ 
+.travel-tooltip {
+    position: relative;
+}
+
+.travel-tooltip::before {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--travel-dark);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+.btn-search-custom {
+    background-color: #FFC107;
+    border: 2px solid #FFC107;
+    color: #000;
+    font-weight: 600;
+    border-radius: 0 8px 8px 0 !important;
+    padding: 10px 20px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-search-custom:hover {
+    background-color: #FFB300;
+    border-color: #FFB300;
+    color: #000;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 193, 7, 0.4);
+}
+
+.btn-search-custom::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 5px;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.5);
+    opacity: 0;
+    border-radius: 100%;
+    transform: scale(1, 1) translate(-50%);
+    transform-origin: 50% 50%;
+}
+
+.btn-search-custom:focus:not(:active)::after {
+    animation: ripple 1s ease-out;
+}
+
+@keyframes ripple {
+    0% {
+        transform: scale(0, 0);
+        opacity: 0.5;
+    }
+    100% {
+        transform: scale(20, 20);
+        opacity: 0;
+    }
+}
+
+.travel-tooltip:hover::before {
+    opacity: 1;
+    visibility: visible;
+    bottom: calc(100% + 8px);
+}
+
+
+
+.card{
+    background-color: #d6dcec;
+    color: #070707;
+}
+
+.link-personalizado
+{
+    color: rgb(5, 20, 235);
 }

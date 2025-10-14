@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+
+{% block title %}Agendar Viaje{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0">📅 Agendar Tu Viaje</h3>
+                </div>
+                <div class="card-body p-4">
+                    <!-- Información del Destino -->
+                    <div class="row mb-4">
+                        <div class="col-md-4">
+                            <img src="{{ url_for('static', filename='uploads/' + producto.imagen) }}" 
+                                 class="img-fluid rounded" alt="{{ producto.nombre_producto }}">
+                        </div>
+                        <div class="col-md-8">
+                            <h4 class="text-primary">{{ producto.nombre_producto }}</h4>
+                            <p class="text-muted">{{ producto.descripcion or 'Experiencia de viaje única con todos los servicios incluidos.' }}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="h4 text-success mb-0">${{ producto.precio }}</span>
+                                <span class="badge bg-warning text-dark">Precio por persona</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <!-- Formulario de Agendamiento -->
+                    <form action="/procesar_agendamiento" method="POST">
+                        <input type="hidden" name="id_producto" value="{{ producto.idProducto }}">
+                        
+                        <h5 class="text-primary mb-3">📋 Información del Viaje</h5>
+                        
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="fecha_salida" class="form-label">Fecha de Salida *</label>
+                                <input type="date" class="form-control" id="fecha_salida" name="fecha_salida" required>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <label for="fecha_regreso" class="form-label">Fecha de Regreso *</label>
+                                <input type="date" class="form-control" id="fecha_regreso" name="fecha_regreso" required>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <label for="adultos" class="form-label">Número de Adultos *</label>
+                                <select class="form-select" id="adultos" name="adultos" required>
+                                    <option value="1">1 Adulto</option>
+                                    <option value="2" selected>2 Adultos</option>
+                                    <option value="3">3 Adultos</option>
+                                    <option value="4">4 Adultos</option>
+                                    <option value="5">5 Adultos</option>
+                                </select>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <label for="ninos" class="form-label">Número de Niños</label>
+                                <select class="form-select" id="ninos" name="ninos">
+                                    <option value="0">0 Niños</option>
+                                    <option value="1">1 Niño</option>
+                                    <option value="2">2 Niños</option>
+                                    <option value="3">3 Niños</option>
+                                </select>
+                            </div>
+                            
+                            <div class="col-12">
+                                <label for="comentarios" class="form-label">Comentarios o Requerimientos Especiales</label>
+                                <textarea class="form-control" id="comentarios" name="comentarios" rows="3" 
+                                          placeholder="Alergias alimenticias, necesidades especiales, preferencias de habitación, etc."></textarea>
+                            </div>
+                        </div>
+
+                        <hr class="my-4">
+
+                        <h5 class="text-primary mb-3">👤 Información de Contacto</h5>
+                        
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="nombre_completo" class="form-label">Nombre Completo *</label>
+                                <input type="text" class="form-control" id="nombre_completo" name="nombre_completo" 
+                                       value="{{ session.get('usuario', '') }}" required>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <label for="email" class="form-label">Email *</label>
+                                <input type="email" class="form-control" id="email" name="email" required>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <label for="telefono" class="form-label">Teléfono *</label>
+                                <input type="tel" class="form-control" id="telefono" name="telefono" required>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <label for="documento" class="form-label">Documento de Identidad *</label>
+                                <input type="text" class="form-control" id="documento" name="documento" required>
+                            </div>
+                        </div>
+
+                        <div class="alert alert-warning mt-4">
+                            <h6>⚠️ Información Importante</h6>
+                            <ul class="mb-0 small">
+                                <li>Las fechas están sujetas a disponibilidad</li>
+                                <li>Se requiere confirmación por parte de nuestro equipo</li>
+                                <li>Te contactaremos dentro de las próximas 24 horas hábiles</li>
+                                <li>El pago debe realizarse para confirmar la reserva</li>
+                            </ul>
+                        </div>
+
+                        <div class="d-grid gap-2 mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                📅 Confirmar Agendamiento
+                            </button>
+                            <a href="{{url_for('catalogo')}}" class="btn btn-outline-secondary">
+                                ← Volver al Catálogo
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Establecer fecha mínima como hoy
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('fecha_salida').min = today;
+    document.getElementById('fecha_regreso').min = today;
+    
+    // Actualizar fecha mínima de regreso cuando cambia la de salida
+    document.getElementById('fecha_salida').addEventListener('change', function() {
+        document.getElementById('fecha_regreso').min = this.value;
+    });
+});
+</script>
+{% endblock %}

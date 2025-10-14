@@ -1,29 +1,265 @@
 {% extends 'base.html' %}
 
-{% block title %}Catalogo{% endblock %}
+{% block title %}Catálogo de Viajes{% endblock %}
 
 {% block content %}
+<div class="">
+    <!-- Hero Section -->
+    <section class="hero-section bg-primary text-white py-5 mb-5 travel-hero">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <h1 class="display-4 fw-bold mb-3">🌍 Descubre el Mundo</h1>
+                    <p class="lead mb-4">Encuentra los destinos más increíbles y vive experiencias únicas con nuestros
+                        paquetes exclusivos</p>
+                    <div class="d-flex gap-3 flex-wrap">
+                        <span class="badge bg-light text-primary fs-6">✈️ Vuelos Incluidos</span>
+                        <span class="badge bg-light text-primary fs-6">🏨 Hoteles 5★</span>
+                        <span class="badge bg-light text-primary fs-6">🎯 Tours Guiados</span>
+                        <span class="badge bg-light text-primary fs-6">🍽️ Comidas Incluidas</span>
+                    </div>
+                </div>
+                <div class="col-lg-4 text-center">
+                    <div class="hero-stats bg-white rounded-3 p-4 text-dark shadow">
+                        <h4 class="fw-bold text-primary">+5,000</h4>
+                        <p class="mb-2">Viajeros Satisfechos</p>
+                        <h4 class="fw-bold text-primary">+50</h4>
+                        <p class="mb-0">Destinos Disponibles</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
- <h1>Productos</h1>
-<a href="/agregar">Agregar Producto</a>
-<center>
- <table border="1" width="300" height="200">
-   {% for p in productos %}
-    <TR>
-        <td>
-         <img src="{{ url_for('static', filename='uploads/' + p.imagen) }}" width="100">
-        </td>
-        <td></td>
-         <td>{{ p.nombre_producto }} - ${{ p.precio }}</td>
+    <!-- Filtros y Búsqueda -->
+<form class="d-flex justify-content-center" method="POST">
+    <div class="input-group" style="width: 1000px;">
+        <input type="text" class="form-control rounded-start" placeholder="Buscar..." 
+               aria-label="Buscar" aria-describedby="search-button" name="busqueda">
+        <button class="btn btn-search-custom" type="submit" id="search-button">
+            <i class="fas fa-search me-1"></i> Buscar
+        </button>
+    </div>
+</form>
+    </form>
+    <section class="filters-section mb-5">
+        <div class="container">
+        </div>
+    </section>
+    <div class="container">
+        <div class="row">
+            {% for r in resultados %}
+            <div class="col-sm-6 col-md-4">
+                <div class="card">
+                    <img src="{{ url_for('static', filename='uploads/' + r.imagen) }}" width="100" height="300"
+                        class="card-img-top" alt="Producto 3">
+                    <div class="card-body">
+                        <h5 class="card-title">{{r["nombre"]}}</h5>
 
-         <td><a href="/carrito/{{p.idProducto}}">Agregar al carrito</a></td>
-      </TR>
-          
-    
-   {% endfor %}
-</table>
-<a href="/mostrar_carrito">Ver carrito</a>
+                        <div class="card-body d-flex flex-column">
+                            <div class="mb-3">
+                                <h5 class="card-title fw-bold text-dark mb-2">{{ r.nombre_producto }}</h5>
+                                <p class="card-text text-muted small mb-3">
+                                    {{ r.descripcion or 'Experiencia única con alojamiento de lujo, tours guiados y
+                                    comidas incluidas.' }}
+                                </p>
 
-</center>
+                                <!-- Información del Paquete -->
+                                <div class="package-info mb-3">
+                                    <div class="row g-2 text-center">
+                                        <div class="col-4">
+                                            <i class="fas fa-calendar text-primary"></i>
+                                            <small class="d-block">7 Días</small>
+                                        </div>
+                                        <div class="col-4">
+                                            <i class="fas fa-hotel text-primary"></i>
+                                            <small class="d-block">Hotel 5★</small>
+                                        </div>
+                                        <div class="col-4">
+                                            <i class="fas fa-utensils text-primary"></i>
+                                            <small class="d-block">Todo Incluido</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
-{% endblock %}
+                            <div class="mt-auto">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <div>
+                                        <span class="text-success fw-bold fs-4 travel-price">${{ r.precio }}</span>
+                                        <small class="text-muted d-block">por persona</small>
+                                    </div>
+                                    <div class="text-warning travel-rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star-half-alt"></i>
+                                        <small class="text-muted">(4.5)</small>
+                                    </div>
+                                </div>
+
+                                <div class="d-grid gap-2">
+                                    <a href="/carrito/{{r.idProducto}}"
+                                        class="btn btn-primary btn-lg travel-reserve-btn">
+                                        🛒 Agregar al Carrito
+                                    </a>
+                                    <a href="{{url_for('reservas')}}?producto={{r.idProducto}}"
+                                        class="btn btn-outline-primary travel-favorite-btn">
+                                        📅 Reservar Ahora
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <h1>NO HAY RESULTADOS</h1>
+            {% endfor %}
+
+        </div>
+        <!-- Catálogo de Viajes -->
+        <div class="container">
+            <!-- Header del Catálogo -->
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div>
+                    <h2 class="text-primary fw-bold">✨ Destinos Populares</h2>
+                    <p class="text-muted">Los viajes más solicitados por nuestros clientes</p>
+                </div>
+
+            </div>
+
+            <!-- Grid de Productos -->
+            <div class="row g-4">
+                {% for p in productos %}
+                <div class="col-xl-4 col-lg-6 col-md-6">
+                    <div class="card travel-card shadow-lg border-0 h-100">
+                        <div class="position-relative">
+                            <img src="{{ url_for('static', filename='uploads/' + p.imagen) }}"
+                                class="card-img-top travel-image" alt="{{ p.nombre_producto }}">
+                            <div class="position-absolute top-0 end-0 m-3">
+                                <span class="badge bg-success fs-6 travel-badge">⭐ Incluye Todo</span>
+                            </div>
+                            <div class="position-absolute bottom-0 start-0 m-3">
+                                <span class="badge bg-primary fs-6 travel-badge">🏷️ Oferta Especial</span>
+                            </div>
+                        </div>
+
+                        <div class="card-body d-flex flex-column">
+                            <div class="mb-3">
+                                <h5 class="card-title fw-bold text-dark mb-2">{{ p.nombre_producto }}</h5>
+                                <p class="card-text text-muted small mb-3">
+                                    {{ p.descripcion or 'Experiencia única con alojamiento de lujo, tours guiados y
+                                    comidas incluidas.' }}
+                                </p>
+
+                                <!-- Información del Paquete -->
+                                <div class="package-info mb-3">
+                                    <div class="row g-2 text-center">
+                                        <div class="col-4">
+                                            <i class="fas fa-calendar text-primary"></i>
+                                            <small class="d-block">7 Días</small>
+                                        </div>
+                                        <div class="col-4">
+                                            <i class="fas fa-hotel text-primary"></i>
+                                            <small class="d-block">Hotel 5★</small>
+                                        </div>
+                                        <div class="col-4">
+                                            <i class="fas fa-utensils text-primary"></i>
+                                            <small class="d-block">Todo Incluido</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-auto">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <div>
+                                        <span class="text-success fw-bold fs-4 travel-price">${{ p.precio }}</span>
+                                        <small class="text-muted d-block">por persona</small>
+                                    </div>
+                                    <div class="text-warning travel-rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star-half-alt"></i>
+                                        <small class="text-muted">(4.5)</small>
+                                    </div>
+                                </div>
+
+                                <div class="d-grid gap-2">
+                                    <a href="/carrito/{{p.idProducto}}"
+                                        class="btn btn-primary btn-lg travel-reserve-btn">
+                                        🛒 Agregar al Carrito
+                                    </a>
+                                    <a href="{{url_for('reservas')}}?producto={{p.idProducto}}"
+                                        class="btn btn-outline-primary travel-favorite-btn">
+                                        📅 Reservar Ahora
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- Sección de Categorías -->
+            <section class="categories-section mt-5 py-5">
+                <div class="container">
+                    <h2 class="text-center text-primary fw-bold mb-5">🌐 Explora por Categoría</h2>
+                    <div class="row g-4">
+                        <div class="col-md-3 col-6">
+                            <div class="category-card text-center p-4 rounded-3 shadow-sm">
+                                <div class="category-icon mb-3">
+                                    <span class="display-4">🏛️</span>
+                                </div>
+                                <h5 class="fw-bold">Europa Clásica</h5>
+                                <p class="text-muted small">Cultura e historia</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-6">
+                            <div class="category-card text-center p-4 rounded-3 shadow-sm">
+                                <div class="category-icon mb-3">
+                                    <span class="display-4">🌴</span>
+                                </div>
+                                <h5 class="fw-bold">Caribe Exótico</h5>
+                                <p class="text-muted small">Playas paradisíacas</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-6">
+                            <div class="category-card text-center p-4 rounded-3 shadow-sm">
+                                <div class="category-icon mb-3">
+                                    <span class="display-4">🗽</span>
+                                </div>
+                                <h5 class="fw-bold">Norteamérica</h5>
+                                <p class="text-muted small">Aventura urbana</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-6">
+                            <div class="category-card text-center p-4 rounded-3 shadow-sm">
+                                <div class="category-icon mb-3">
+                                    <span class="display-4">🕌</span>
+                                </div>
+                                <h5 class="fw-bold">Asia Mística</h5>
+                                <p class="text-muted small">Tradición y modernidad</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Carrito Flotante -->
+            <div class="text-center mt-5">
+                <a href="/mostrar_carrito" class="btn btn-warning btn-lg px-5 py-3 travel-cart-btn">
+                    🛍️ Ver Mi Carrito de Viajes
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Agregar Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    {% endblock %}

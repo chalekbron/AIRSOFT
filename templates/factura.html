@@ -1,8 +1,109 @@
-<h1>Factura</h1>
-<ul>
-  {% for p in carrito %}
-    <li>{{ p.nombre }} - ${{ p.precio }}</li>
-  {% endfor %}
-</ul>
-<h3>Total: ${{ total }}</h3>
-<p>¡Gracias por tu compra!</p>
+{% extends 'base.html' %}
+
+{% block title %}Agendar Viaje{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-success text-white text-center py-4">
+                    <h1 class="mb-0">✅ ¡Compra Exitosa!</h1>
+                    <p class="mb-0 mt-2">Gracias por confiar en Airsoft Travel</p>
+                </div>
+                <div class="card-body p-5">
+                    <!-- Información de la Factura -->
+                    <div class="row mb-5">
+                        <div class="col-md-6">
+                            <h5 class="text-primary">Información del Cliente</h5>
+                            <p class="mb-1"><strong>Nombre:</strong> {{ session.get('usuario', 'Cliente') }}</p>
+                            <p class="mb-1"><strong>Fecha:</strong> {{ hoy }}</p>
+                            <p class="mb-0"><strong>N° Factura:</strong> #{{ "%06d" | format(range(1, 1000000) | random) }}</p>
+                        </div>
+                        <div class="col-md-6 text-md-end">
+                            <h5 class="text-primary">Airsoft Travel</h5>
+                            <p class="mb-1">Calle Viajeros 123</p>
+                            <p class="mb-1">Ciudad Turística, CP 12345</p>
+                            <p class="mb-0">contacto@airsofttravel.com</p>
+                        </div>
+                    </div>
+
+                    <!-- Detalles de la Compra -->
+                    <div class="table-responsive mb-4">
+                        <table class="table table-bordered">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Destino</th>
+                                    <th class="text-center">Precio</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for p in carrito %}
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <img src="{{ url_for('static', filename='uploads/' + p.imagen) }}" 
+                                                 class="rounded me-3" width="50" height="50" 
+                                                 alt="{{ p.nombre_producto }}">
+                                            <div>
+                                                <h6 class="mb-0">{{ p.nombre_producto }}</h6>
+                                                <small class="text-muted">{{ p.descripcion or 'Paquete de viaje completo' }}</small>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-end align-middle">${{ p.precio }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                            <tfoot class="table-light">
+                                <tr>
+                                    <td class="text-end"><strong>Subtotal:</strong></td>
+                                    <td class="text-end">${{ total }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-end"><strong>Impuestos (10%):</strong></td>
+                                    <td class="text-end">${{ (total|float * 0.1)|round(2) }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-end"><strong>Total:</strong></td>
+                                    <td class="text-end text-success fw-bold">${{ (total|float * 1.1)|round(2) }}</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+
+                    <!-- Información Adicional -->
+                    <div class="alert alert-info">
+                        <h6>📦 Información de Entrega</h6>
+                        <p class="mb-2">Recibirás los detalles de tu viaje por correo electrónico en las próximas 24 horas.</p>
+                        <p class="mb-0">Para cualquier consulta, contacta a nuestro equipo de soporte: <strong>soporte@airsofttravel.com</strong></p>
+                    </div>
+
+                    <!-- Pasos Siguientes -->
+                    <div class="row mt-4">
+                        <div class="col-md-4 text-center mb-3">
+                            <div class="border rounded p-3 h-100">
+                                <i class="fas fa-envelope text-primary display-6 mb-3"></i>
+                                <h6>Confirmación por Email</h6>
+                                <p class="small text-muted">Recibirás un email con todos los detalles de tu reserva</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 text-center mb-3">
+                            <div class="border rounded p-3 h-100">
+                                <i class="fas fa-calendar-check text-primary display-6 mb-3"></i>
+                                <h6>Preparación del Viaje</h6>
+                                <p class="small text-muted">Nuestro equipo se contactará para coordinar los detalles</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 text-center mb-3">
+                            <div class="border rounded p-3 h-100">
+                                <i class="fas fa-plane text-primary display-6 mb-3"></i>
+                                <h6>¡A Viajar!</h6>
+                                <p class="small text-muted">Disfruta de una experiencia inolvidable con Airsoft Travel</p>
+                            </div>
+                        </div>
+                    </div>
+
+                  
+{% endblock %}
