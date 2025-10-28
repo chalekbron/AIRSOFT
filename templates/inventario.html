@@ -32,7 +32,7 @@
                     <button class="btn btn-warning btn-sm" data-bs-toggle="modal"
                         data-bs-target="#ModalEdit{{ p ['idProducto']}}">Editar</button>
                     <button class="btn btn-danger btn-sm" data-bs-toggle="modal"
-                        data-bs-target="#ModalEliminar {{ p ['idProducto']}}">Eliminar</button>
+                        data-bs-target="#ModalEliminar{{ p ['idProducto']}}">Eliminar</button>
 
                 </td>
             </tr>
@@ -47,7 +47,7 @@
 
                     <!-- Modal Header -->
                     <div class="modal-header">
-                        <h4 class="modal-title">Agregar Productos</h4>
+                        <h4 class="black">Agregar Productos</h4>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
 
@@ -55,24 +55,24 @@
                     <div class="modal-body">
                         <div class="row g-3">
                             <div class="col-md-6">
-                                <label  class="titulo" class="titulo" for="nombre" class="form-label">Nombre</label>
+                                <label class="black" class="titulo" for="nombre" class="form-label">Nombre</label>
                                 <input type="text" class="form-control" name="nombre" id="nombre" required>
                             </div>
 
                             <div class="col-md-6">
-                                <label for="precio" class="form-label">Precio</label>
+                                <label class="black"for="precio" class="form-label">Precio</label>
                                 <input type="number" class="form-control" name="precio" id="precio" required>
                             </div>
                             <div class="col-md-12">
-                                <label for="descripcion" class="form-label">Descripcion</label>
+                                <label class="black" for="descripcion" class="form-label">Descripcion</label>
                                 <textarea class="form-control" name="descripcion" id="descripcion" rows="3"></textarea>
                             </div>
                             <div class="col-md-6">
-                                <label for="cantidad" class="form-label">Cantidad</label>
+                                <label class="black"for="cantidad" class="form-label">Cantidad</label>
                                 <input type="number" class="form-control" name="cantidad" id="cantidad" required>
                             </div>
                             <div class="col-md-6">
-                                <label for="imagen" class="form-label">Imagen</label>
+                                <label class="black"for="imagen" class="form-label">Imagen</label>
                                 <input type="file" class="form-control" name="imagen" id="imagen" required>
                             </div>
                         </div>
@@ -102,7 +102,7 @@
 
                     <!-- Modal Header -->
                     <div class="modal-header">
-                        <h4 class="modal-title" id="EditModalLabel {{ p ['idProducto']}}">Editar Producto:
+                        <h4 class="papu" class="modal-title" id="EditModalLabel {{ p ['idProducto']}}">Editar Producto:
                             {{ p['nombre_producto']}} </h4>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
@@ -161,12 +161,12 @@
 
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="titulo" class="modal-title" id="modalLabel{{p['idProducto']}}">Confirmar Eliminacion</h4>
+                <h4 class="papu"  class="modal-title" id="modalLabel{{p['idProducto']}}">Confirmar Eliminacion</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
 
             <!-- Modal body -->
-            <div class="titulo" class="modal-body">
+            <div class="papu"  class="modal-body">
                 ¿Estas seguro de que quieres eliminar el producto <strong> {{p['nombre_producto']}}</strong>?
             </div>
 

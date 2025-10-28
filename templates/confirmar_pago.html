@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Confirmación de Pago{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-lg border-0 text-center">
+                <div class="card-header bg-success text-white py-4">
+                    <h1 class="mb-0"><i class="fas fa-check-circle me-2"></i>¡Reserva Confirmada!</h1>
+                </div>
+                <div class="card-body p-5">
+                    <div class="mb-4">
+                        <i class="fas fa-plane-departure display-1 text-primary mb-3"></i>
+                        <h3 class="text-primary">¡Tu aventura está confirmada!</h3>
+                    </div>
+                    
+                    <div class="alert alert-info mb-4">
+                        <h5>Detalles de tu reserva:</h5>
+                        <p class="mb-1"><strong>Método de pago:</strong> {{ metodo }}</p>
+                        <p class="mb-1"><strong>Código de transacción:</strong> <span class="badge bg-primary">{{ codigo }}</span></p>
+                        <p class="mb-0"><strong>Total pagado:</strong> ${{ total }}</p>
+                    </div>
+                    
+                    <div class="border rounded p-4 mb-4">
+                        <h5 class="text-primary"> ¿Qué sigue?</h5>
+                        <p class="mb-2">Recibirás un email con todos los detalles de tu viaje</p>
+                        <p class="mb-2">Nuestro equipo se contactará para coordinar los detalles</p>
+                        <p class="mb-0">¡Prepárate para una experiencia inolvidable!</p>
+                    </div>
+
+                    <a href="{{url_for('catalogo')}}" class="btn btn-primary btn-lg mt-3">
+                        <i class="fas fa-globe me-2"></i>Descubrir Más Destinos
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

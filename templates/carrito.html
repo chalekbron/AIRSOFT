@@ -12,89 +12,238 @@
 
     {% if carrito %}
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-lg-8">
             <div class="card shadow-lg border-0">
                 <div class="card-header bg-primary text-white">
-                    <h4 class="mb-0">Destinos Seleccionados</h4>
+                    <h4 class="mb-0">✈️ Tus Viajes Seleccionados</h4>
                 </div>
-                <div class="card-body p-0">
-                    <div class="table-responsive">
-                        <table class="table table-hover align-middle mb-0">
-                            <thead class="table-light">
-                                <tr>
-                                    <th>Destino</th>
-                                    <th>Precio</th>
-                                    <th>Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for p in carrito %}
-                                <tr>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <img src="{{ url_for('static', filename='uploads/' + p.imagen) }}" 
-                                                 class="rounded me-3" width="60" height="60" 
-                                                 alt="{{ p.nombre_producto }}">
-                                            <div>
-                                                <h6 class="mb-0">{{ p.nombre_producto }}</h6>
-                                                <small class="text-muted">{{ p.descripcion or 'Paquete de viaje completo' }}</small>
+                <div class="card-body">
+                    {% for p in carrito %}
+                    <div class="cart-item mb-4 p-3 border rounded">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <img src="{{ url_for('static', filename='uploads/' + p.imagen) }}" 
+                                     class="img-fluid rounded" 
+                                     alt="{{ p.nombre_producto }}">
+                            </div>
+                            <div class="col-md-9">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <h5 class="text-primary">{{ p.nombre_producto }}</h5>
+                                        <p class="text-muted mb-3">{{ p.descripcion or 'Paquete de viaje completo' }}</p>
+                                        
+                                        <!-- Información del Viaje -->
+                                        <div class="travel-info-section">
+                                            <h6 class="text-primary mb-3">📅 Configura tu Viaje</h6>
+                                            
+                                            <div class="row g-3">
+                                                <!-- Tipo de Viaje -->
+                                                <div class="col-md-6">
+                                                    <label class="form-label small fw-bold">Tipo de Viaje</label>
+                                                    <select class="form-select form-select-sm travel-option" name="tipo_viaje">
+                                                        <option value="solo_vuelo">✈️ Solo Vuelo</option>
+                                                        <option value="vuelo_hotel" selected>🏨 Vuelo + Hotel</option>
+                                                        <option value="todo_incluido">🌟 Todo Incluido</option>
+                                                        <option value="personalizado">🎯 Personalizado</option>
+                                                    </select>
+                                                </div>
+                                                
+                                                <!-- Clase -->
+                                                <div class="col-md-6">
+                                                    <label class="form-label small fw-bold">Clase</label>
+                                                    <select class="form-select form-select-sm travel-option" name="clase">
+                                                        <option value="economica" selected>💺 Económica</option>
+                                                        <option value="ejecutiva">✨ Ejecutiva</option>
+                                                        <option value="primera">🎩 Primera Clase</option>
+                                                    </select>
+                                                </div>
+                                                
+                                                <!-- Fechas -->
+                                                <div class="col-md-6">
+                                                    <label class="form-label small fw-bold">Fecha de Salida</label>
+                                                    <input type="date" class="form-control form-control-sm travel-option" 
+                                                           name="fecha_salida" value="{{ hoy }}" min="{{ hoy }}">
+                                                </div>
+                                                
+                                                <div class="col-md-6">
+                                                    <label class="form-label small fw-bold">Fecha de Regreso</label>
+                                                    <input type="date" class="form-control form-control-sm travel-option" 
+                                                           name="fecha_regreso" value="{{ hoy }}">
+                                                </div>
+                                                
+                                                <!-- Pasajeros -->
+                                                <div class="col-md-4">
+                                                    <label class="form-label small fw-bold">👨‍👩‍👧‍👦 Adultos</label>
+                                                    <select class="form-select form-select-sm travel-option" name="adultos">
+                                                        <option value="1">1 Adulto</option>
+                                                        <option value="2" selected>2 Adultos</option>
+                                                        <option value="3">3 Adultos</option>
+                                                        <option value="4">4 Adultos</option>
+                                                    </select>
+                                                </div>
+                                                
+                                                <div class="col-md-4">
+                                                    <label class="form-label small fw-bold">🧒 Niños</label>
+                                                    <select class="form-select form-select-sm travel-option" name="ninos">
+                                                        <option value="0" selected>0 Niños</option>
+                                                        <option value="1">1 Niño</option>
+                                                        <option value="2">2 Niños</option>
+                                                        <option value="3">3 Niños</option>
+                                                    </select>
+                                                </div>
+                                                
+                                                <div class="col-md-4">
+                                                    <label class="form-label small fw-bold">🛌 Habitación</label>
+                                                    <select class="form-select form-select-sm travel-option" name="habitacion">
+                                                        <option value="sencilla" selected>🛏️ Sencilla</option>
+                                                        <option value="doble">🛏️🛏️ Doble</option>
+                                                        <option value="suite">🏰 Suite</option>
+                                                    </select>
+                                                </div>
+                                                
+                                                <!-- Comentarios Adicionales -->
+                                                <div class="col-12">
+                                                    <label class="form-label small fw-bold">💬 Comentarios Especiales</label>
+                                                    <textarea class="form-control form-control-sm travel-option" 
+                                                              name="comentarios" rows="2" 
+                                                              placeholder="Alergias alimenticias, necesidades especiales, etc."></textarea>
+                                                </div>
                                             </div>
                                         </div>
-                                    </td>
-                                    <td>
-                                        <span class="fw-bold text-success">${{ p.precio }}</span>
-                                    </td>
-                                    <td>
-                                        <a href="/eliminar_carrito/{{ loop.index0 }}" class="btn btn-outline-danger btn-sm">
-                                            <i class="fas fa-trash"></i> Eliminar
-                                        </a>
-                                    </td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
+                                    </div>
+                                    
+                                    <div class="col-md-4">
+                                        <div class="text-end">
+                                            <div class="price-section mb-3">
+                                                <h4 class="text-success fw-bold">${{ "{:,.0f}".format(p.precio) }}</h4>
+                                                <small class="text-muted">por persona</small>
+                                            </div>
+                                            
+                                            <div class="travel-duration mb-3">
+                                                <small class="text-muted">
+                                                    <i class="fas fa-calendar me-1"></i>
+                                                    <strong>Duración:</strong> 7 días / 6 noches
+                                                </small>
+                                            </div>
+                                            
+                                            <div class="includes-section mb-3">
+                                                <small class="text-success">
+                                                    <strong>✅ Incluye:</strong><br>
+                                                    • Vuelo ida y vuelta<br>
+                                                    • Hotel 4★<br>
+                                                    • Desayuno incluido<br>
+                                                    • Tours guiados
+                                                </small>
+                                            </div>
+                                            
+                                            <a href="{{ url_for('eliminar_del_carrito', index=loop.index0) }}" 
+                                               class="btn btn-outline-danger btn-sm">
+                                                <i class="fas fa-trash me-1"></i> Eliminar
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-lg-4">
             <div class="card shadow-lg border-0 sticky-top" style="top: 20px;">
                 <div class="card-header bg-info text-white">
                     <h5 class="mb-0">📋 Resumen de Compra</h5>
                 </div>
                 <div class="card-body">
-                    <div class="d-flex justify-content-between mb-2">
-                        <span>Subtotal:</span>
-                        <span>${{ total }}</span>
-                    </div>
-                    <div class="d-flex justify-content-between mb-2">
-                        <span>Impuestos (10%):</span>
-                        <span>${{ (total|float * 0.1)|round(2) }}</span>
-                    </div>
-                    <hr>
-                    <div class="d-flex justify-content-between mb-3">
-                        <strong>Total:</strong>
-                        <strong class="text-success">${{ (total|float * 1.1)|round(2) }}</strong>
-                    </div>
-                    
-                    <div class="d-grid gap-2">
-                        <a href="/factura" class="btn btn-primary btn-lg">
-                            🎫 Finalizar Compra
-                        </a>
-                        <a href="{{url_for('catalogo')}}" class="btn btn-outline-primary">
-                            ✈️ Seguir Explorando
-                        </a>
-                    </div>
-                    
-                    <div class="mt-3">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="termsCheck">
-                            <label class="form-check-label small" for="termsCheck">
-                                Acepto los <a href="#" class="text-primary">términos y condiciones</a>
-                            </label>
+                    <!-- Resumen de Costos -->
+                    <div class="cost-summary mb-4">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Subtotal:</span>
+                            <span>${{ total }}</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Impuestos (10%):</span>
+                            <span>${{ (total|float * 0.1)|round(2) }}</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Seguro de viaje:</span>
+                            <span>${{ (total|float * 0.05)|round(2) }}</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Tasas aeroportuarias:</span>
+                            <span>$50.00</span>
+                        </div>
+                        <hr>
+                        <div class="d-flex justify-content-between mb-3">
+                            <strong>Total:</strong>
+                            <strong class="text-success">${{ (total|float * 1.15 + 50)|round(2) }}</strong>
                         </div>
                     </div>
+                    
+                    <!-- Información Importante -->
+                    <div class="travel-policies mb-4">
+                        <h6 class="text-primary">📝 Información Importante</h6>
+                        <div class="small">
+                            <p class="mb-2"><strong>Políticas de cancelación:</strong></p>
+                            <ul class="small ps-3 mb-3">
+                                <li>Cancelación 30+ días: 90% de reembolso</li>
+                                <li>Cancelación 15-29 días: 50% de reembolso</li>
+                                <li>Cancelación 0-14 días: Sin reembolso</li>
+                            </ul>
+                            
+                            <p class="mb-2"><strong>Documentación requerida:</strong></p>
+                            <ul class="small ps-3">
+                                <li>Pasaporte vigente</li>
+                                <li>Visas según destino</li>
+                                <li>Seguro de viaje</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- Métodos de Pago (SIN CAMBIOS) -->
+                    <form action="{{ url_for('procesar_pago') }}" method="POST">
+                        <div class="payment-methods mb-4">
+                            <h6 class="text-primary">💳 Método de Pago</h6>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="metodo_pago" id="nequi" value="nequi" required>
+                                <label class="form-check-label" for="nequi">
+                                    <i class="fas fa-mobile-alt me-2"></i>Nequi
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="metodo_pago" id="bancolombia" value="bancolombia">
+                                <label class="form-check-label" for="bancolombia">
+                                    <i class="fas fa-university me-2"></i>Bancolombia
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="metodo_pago" id="tarjeta" value="tarjeta">
+                                <label class="form-check-label" for="tarjeta">
+                                    <i class="fas fa-credit-card me-2"></i>Tarjeta de Crédito
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="termsCheck" name="terms" required>
+                                <label class="form-check-label small" for="termsCheck">
+                                    Acepto los <a href="#" class="text-primary">términos y condiciones</a> y las políticas de cancelación
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                🎫 Proceder al Pago
+                            </button>
+                            <a href="{{url_for('catalogo')}}" class="btn btn-outline-primary">
+                                ✈️ Seguir Explorando
+                            </a>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -114,18 +263,37 @@
             </div>
         </div>
     </div>
-
-{% for producto in carrito %}
-<div class="card mb-3">
-    <div class="card-body">
-        <h5 class="card-title">{{ producto.nombre_producto }}</h5>
-        <p class="card-text">Precio: ${{ "%.2f"|format(producto.precio|float) }}</p>
-        <a href="{{ url_for('eliminar_del_carrito', index=loop.index0) }}" class="btn btn-danger btn-sm">
-            <i class="fas fa-trash"></i> Eliminar
-        </a>
-    </div>
-</div>
-{% endfor %}
     {% endif %}
 </div>
+
+ 
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const fechaSalidaInputs = document.querySelectorAll('input[name="fecha_salida"]');
+    const fechaRegresoInputs = document.querySelectorAll('input[name="fecha_regreso"]');
+    
+    fechaSalidaInputs.forEach((fechaSalida, index) => {
+        const fechaRegreso = fechaRegresoInputs[index];
+        
+        fechaSalida.addEventListener('change', function() {
+            if (this.value) {
+                fechaRegreso.min = this.value;
+            }
+        });
+    });
+    
+    const travelOptions = document.querySelectorAll('.travel-option');
+    travelOptions.forEach(option => {
+        option.addEventListener('change', function() {
+            this.style.borderColor = '#0d6efd';
+            this.style.boxShadow = '0 0 0 0.2rem rgba(13, 110, 253, 0.25)';
+            setTimeout(() => {
+                this.style.borderColor = '';
+                this.style.boxShadow = '';
+            }, 1000);
+        });
+    });
+});
+</script>
 {% endblock %}

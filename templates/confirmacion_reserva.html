@@ -8,7 +8,7 @@
         <div class="col-md-8">
             <div class="card shadow-lg border-0">
                 <div class="card-header bg-success text-white text-center">
-                    <h2 class="mb-0">✅ Reserva Confirmada</h2>
+                    <h2 class="mb-0"> Reserva Confirmada</h2>
                 </div>
                 <div class="card-body">
                     <div class="text-center mb-4">
@@ -16,7 +16,7 @@
                         <h3 class="text-success mt-3">¡Gracias por tu reserva!</h3>
                         <p class="lead">Tu reserva ha sido procesada exitosamente</p>
                     </div>
-
+<p><strong>Número de Reserva:</strong> <span class="text-info">#{{ reserva.idReserva }}</span></p>
                     <div class="reserva-detalles">
                         <h5 class="text-primary mb-3">Detalles de tu Reserva:</h5>
                         
@@ -46,7 +46,7 @@
                         </div>
 
                         <div class="alert alert-info mt-4">
-                            <h6>📞 Contacto de Emergencia:</h6>
+                            <h6> Contacto de Emergencia:</h6>
                             <p class="mb-1">Si tienes alguna pregunta, contáctanos:</p>
                             <p class="mb-0"><strong>Teléfono:</strong> +1 (555) 123-4567</p>
                             <p class="mb-0"><strong>Email:</strong> reservas@airsoft.com</p>
@@ -55,10 +55,10 @@
 
                     <div class="text-center mt-4">
                         <a href="{{url_for('catalogo')}}" class="btn btn-primary me-2">
-                            🏠 Volver al Catálogo
+                             Volver al Catálogo
                         </a>
                         <a href="{{url_for('reservas')}}" class="btn btn-outline-primary">
-                            ✈️ Nueva Reserva
+                             Nueva Reserva
                         </a>
                     </div>
                 </div>

@@ -9,15 +9,9 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-8">
-                    <h1 class="display-4 fw-bold mb-3">🌍 Descubre el Mundo</h1>
-                    <p class="lead mb-4">Encuentra los destinos más increíbles y vive experiencias únicas con nuestros
-                        paquetes exclusivos</p>
-                    <div class="d-flex gap-3 flex-wrap">
-                        <span class="badge bg-light text-primary fs-6">✈️ Vuelos Incluidos</span>
-                        <span class="badge bg-light text-primary fs-6">🏨 Hoteles 5★</span>
-                        <span class="badge bg-light text-primary fs-6">🎯 Tours Guiados</span>
-                        <span class="badge bg-light text-primary fs-6">🍽️ Comidas Incluidas</span>
-                    </div>
+                    <h1 class="titulo-descubre-mundo">Descubre el Mundo</h1>
+                    <p class="lead-descubre">Encuentra los destinos más increíbles y vive experiencias únicas con nuestros paquetes exclusivos</p>
+                     
                 </div>
                 <div class="col-lg-4 text-center">
                     <div class="hero-stats bg-white rounded-3 p-4 text-dark shadow">
@@ -32,20 +26,21 @@
     </section>
 
     <!-- Filtros y Búsqueda -->
-<form class="d-flex justify-content-center" method="POST">
-    <div class="input-group" style="width: 1000px;">
-        <input type="text" class="form-control rounded-start" placeholder="Buscar..." 
-               aria-label="Buscar" aria-describedby="search-button" name="busqueda">
-        <button class="btn btn-search-custom" type="submit" id="search-button">
-            <i class="fas fa-search me-1"></i> Buscar
-        </button>
-    </div>
-</form>
+    <form class="d-flex justify-content-center" method="POST">
+        <div class="input-group" style="width: 1000px;">
+            <input type="text" class="form-control rounded-start" placeholder="Buscar..." 
+                   aria-label="Buscar" aria-describedby="search-button" name="busqueda">
+            <button class="btn btn-search-custom" type="submit" id="search-button">
+                <i class="fas fa-search me-1"></i> Buscar
+            </button>
+        </div>
     </form>
+
     <section class="filters-section mb-5">
         <div class="container">
         </div>
     </section>
+
     <div class="container">
         <div class="row">
             {% for r in resultados %}
@@ -73,7 +68,7 @@
                                         </div>
                                         <div class="col-4">
                                             <i class="fas fa-hotel text-primary"></i>
-                                            <small class="d-block">Hotel 5★</small>
+                                            <small class="d-block"></small>
                                         </div>
                                         <div class="col-4">
                                             <i class="fas fa-utensils text-primary"></i>
@@ -86,7 +81,7 @@
                             <div class="mt-auto">
                                 <div class="d-flex justify-content-between align-items-center mb-3">
                                     <div>
-                                        <span class="text-success fw-bold fs-4 travel-price">${{ r.precio }}</span>
+                                        <span class="text-success fw-bold fs-4 travel-price">${{ "{:,.0f}".format(r.precio) }}</span>
                                         <small class="text-muted d-block">por persona</small>
                                     </div>
                                     <div class="text-warning travel-rating">
@@ -102,11 +97,11 @@
                                 <div class="d-grid gap-2">
                                     <a href="/carrito/{{r.idProducto}}"
                                         class="btn btn-primary btn-lg travel-reserve-btn">
-                                        🛒 Agregar al Carrito
+                                         Agregar al Carrito
                                     </a>
                                     <a href="{{url_for('reservas')}}?producto={{r.idProducto}}"
                                         class="btn btn-outline-primary travel-favorite-btn">
-                                        📅 Reservar Ahora
+                                         Reservar Ahora
                                     </a>
                                 </div>
                             </div>
@@ -115,19 +110,23 @@
                 </div>
             </div>
             {% else %}
-            <h1>NO HAY RESULTADOS</h1>
+            {% if request.method == "POST" %}
+            <div class="col-12 text-center py-5">
+                <h3 class="white"> No se encontraron resultados</h3>
+                <p class="white">Intenta con otros términos de búsqueda</p>
+            </div>
+            {% endif %}
             {% endfor %}
-
         </div>
+
         <!-- Catálogo de Viajes -->
         <div class="container">
             <!-- Header del Catálogo -->
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <div>
-                    <h2 class="text-primary fw-bold">✨ Destinos Populares</h2>
+                    <h2 class="text-primary fw-bold"> Destinos Populares</h2>
                     <p class="text-muted">Los viajes más solicitados por nuestros clientes</p>
                 </div>
-
             </div>
 
             <!-- Grid de Productos -->
@@ -139,10 +138,10 @@
                             <img src="{{ url_for('static', filename='uploads/' + p.imagen) }}"
                                 class="card-img-top travel-image" alt="{{ p.nombre_producto }}">
                             <div class="position-absolute top-0 end-0 m-3">
-                                <span class="badge bg-success fs-6 travel-badge">⭐ Incluye Todo</span>
+                                <span class="badge bg-success fs-6 travel-badge"> Incluye Todo</span>
                             </div>
                             <div class="position-absolute bottom-0 start-0 m-3">
-                                <span class="badge bg-primary fs-6 travel-badge">🏷️ Oferta Especial</span>
+                                <span class="badge bg-primary fs-6 travel-badge"> Oferta Especial</span>
                             </div>
                         </div>
 
@@ -176,7 +175,7 @@
                             <div class="mt-auto">
                                 <div class="d-flex justify-content-between align-items-center mb-3">
                                     <div>
-                                        <span class="text-success fw-bold fs-4 travel-price">${{ p.precio }}</span>
+                                        <span class="text-success fw-bold fs-4 travel-price">${{ "{:,.0f}".format(p.precio) }}</span>
                                         <small class="text-muted d-block">por persona</small>
                                     </div>
                                     <div class="text-warning travel-rating">
@@ -192,11 +191,11 @@
                                 <div class="d-grid gap-2">
                                     <a href="/carrito/{{p.idProducto}}"
                                         class="btn btn-primary btn-lg travel-reserve-btn">
-                                        🛒 Agregar al Carrito
+                                         Agregar al Carrito
                                     </a>
                                     <a href="{{url_for('reservas')}}?producto={{p.idProducto}}"
                                         class="btn btn-outline-primary travel-favorite-btn">
-                                        📅 Reservar Ahora
+                                         Reservar Ahora
                                     </a>
                                 </div>
                             </div>
@@ -206,55 +205,12 @@
                 {% endfor %}
             </div>
 
-            <!-- Sección de Categorías -->
-            <section class="categories-section mt-5 py-5">
-                <div class="container">
-                    <h2 class="text-center text-primary fw-bold mb-5">🌐 Explora por Categoría</h2>
-                    <div class="row g-4">
-                        <div class="col-md-3 col-6">
-                            <div class="category-card text-center p-4 rounded-3 shadow-sm">
-                                <div class="category-icon mb-3">
-                                    <span class="display-4">🏛️</span>
-                                </div>
-                                <h5 class="fw-bold">Europa Clásica</h5>
-                                <p class="text-muted small">Cultura e historia</p>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-6">
-                            <div class="category-card text-center p-4 rounded-3 shadow-sm">
-                                <div class="category-icon mb-3">
-                                    <span class="display-4">🌴</span>
-                                </div>
-                                <h5 class="fw-bold">Caribe Exótico</h5>
-                                <p class="text-muted small">Playas paradisíacas</p>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-6">
-                            <div class="category-card text-center p-4 rounded-3 shadow-sm">
-                                <div class="category-icon mb-3">
-                                    <span class="display-4">🗽</span>
-                                </div>
-                                <h5 class="fw-bold">Norteamérica</h5>
-                                <p class="text-muted small">Aventura urbana</p>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-6">
-                            <div class="category-card text-center p-4 rounded-3 shadow-sm">
-                                <div class="category-icon mb-3">
-                                    <span class="display-4">🕌</span>
-                                </div>
-                                <h5 class="fw-bold">Asia Mística</h5>
-                                <p class="text-muted small">Tradición y modernidad</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+             
 
             <!-- Carrito Flotante -->
             <div class="text-center mt-5">
                 <a href="/mostrar_carrito" class="btn btn-warning btn-lg px-5 py-3 travel-cart-btn">
-                    🛍️ Ver Mi Carrito de Viajes
+                     Ver Mi Carrito de Viajes
                 </a>
             </div>
         </div>
@@ -262,4 +218,4 @@
 
     <!-- Agregar Font Awesome para iconos -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    {% endblock %}
+{% endblock %}

@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Agendar Viaje{% endblock %}
+{% block title %}Factura de Compra{% endblock %}
 
 {% block content %}
 
@@ -9,32 +9,99 @@
         <div class="col-lg-10">
             <div class="card shadow-lg border-0">
                 <div class="card-header bg-success text-white text-center py-4">
-                    <h1 class="mb-0">✅ ¡Compra Exitosa!</h1>
-                    <p class="mb-0 mt-2">Gracias por confiar en Airsoft Travel</p>
+                    <h1 class="mb-0"> ¡Compra Exitosa!</h1>
+                    <p class="mb-0 mt-2">Gracias por confiar en Airsoft</p>
                 </div>
                 <div class="card-body p-5">
+                    
                     <!-- Información de la Factura -->
                     <div class="row mb-5">
                         <div class="col-md-6">
                             <h5 class="text-primary">Información del Cliente</h5>
                             <p class="mb-1"><strong>Nombre:</strong> {{ session.get('usuario', 'Cliente') }}</p>
                             <p class="mb-1"><strong>Fecha:</strong> {{ hoy }}</p>
-                            <p class="mb-0"><strong>N° Factura:</strong> #{{ "%06d" | format(range(1, 1000000) | random) }}</p>
+                            <p class="mb-0"><strong>N° Factura:</strong> #{{ numero_factura }}</p>
                         </div>
                         <div class="col-md-6 text-md-end">
                             <h5 class="text-primary">Airsoft Travel</h5>
                             <p class="mb-1">Calle Viajeros 123</p>
                             <p class="mb-1">Ciudad Turística, CP 12345</p>
-                            <p class="mb-0">contacto@airsofttravel.com</p>
+                            <p class="mb-0">yanfristib@gmail.com</p>
                         </div>
                     </div>
 
-                    <!-- Detalles de la Compra -->
+                    <!-- INFORMACIÓN DE PAGO -->
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <div class="card border-primary">
+                                <div class="card-header bg-primary text-white">
+                                    <h5 class="mb-0">💳 Información de Pago</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <p class="mb-2"><strong>Método de Pago:</strong></p>
+                                            <div class="d-flex align-items-center">
+                                                {% if metodo_pago == 'nequi' %}
+                                                <i class="fas fa-mobile-alt text-primary me-2 fs-4"></i>
+                                                <span class="fs-5 fw-bold">Nequi</span>
+                                                {% elif metodo_pago == 'bancolombia' %}
+                                                <i class="fas fa-university text-primary me-2 fs-4"></i>
+                                                <span class="fs-5 fw-bold">Bancolombia</span>
+                                                {% elif metodo_pago == 'tarjeta' %}
+                                                <i class="fas fa-credit-card text-primary me-2 fs-4"></i>
+                                                <span class="fs-5 fw-bold">Tarjeta de Crédito</span>
+                                                {% else %}
+                                                <span class="fs-5 fw-bold text-warning">{{ metodo_pago|default('No especificado') }}</span>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p class="mb-2"><strong>Estado del Pago:</strong></p>
+                                            <span class="badge bg-success fs-6 p-2">✅ Confirmado</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Instrucciones específicas por método de pago -->
+                                    <div class="mt-3 p-3 bg-light rounded">
+                                        <h6 class="text-primary">📋 Instrucciones para completar tu pago:</h6>
+                                        {% if metodo_pago == 'nequi' %}
+                                        <ul class="mb-0">
+                                            <li>Busca en Nequi: <strong>Pagos > Empresas</strong></li>
+                                            <li>Busca: <strong>Airsoft Travel</strong></li>
+                                            <li>Monto: <strong>${{ "%.2f"|format(total|float * 1.1) }}</strong></li>
+                                            <li>Referencia: <strong>VIAJE{{ numero_factura }}</strong></li>
+                                        </ul>
+                                        {% elif metodo_pago == 'bancolombia' %}
+                                        <ul class="mb-0">
+                                            <li>Cuenta Bancolombia: <strong>123-456789-00</strong></li>
+                                            <li>Titular: <strong>Airsoft Travel SAS</strong></li>
+                                            <li>Monto: <strong>${{ "%.2f"|format(total|float * 1.1) }}</strong></li>
+                                            <li>Concepto: <strong>Reserva Viaje</strong></li>
+                                        </ul>
+                                        {% elif metodo_pago == 'tarjeta' %}
+                                        <ul class="mb-0">
+                                            <li>Tu pago ha sido procesado exitosamente</li>
+                                            <li>Monto: <strong>${{ "%.2f"|format(total|float * 1.1) }}</strong></li>
+                                            <li>El cargo aparecerá como: <strong>AIRSOFT TRAVEL</strong></li>
+                                            <li>Recibirás el comprobante por email</li>
+                                        </ul>
+                                        {% else %}
+                                        <p class="mb-0">Contacta a nuestro equipo para instrucciones de pago.</p>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- DETALLES DE LOS VIAJES CON INFORMACIÓN COMPLETA -->
                     <div class="table-responsive mb-4">
                         <table class="table table-bordered">
                             <thead class="table-light">
                                 <tr>
                                     <th>Destino</th>
+                                    <th>Detalles del Viaje</th>
                                     <th class="text-center">Precio</th>
                                 </tr>
                             </thead>
@@ -43,31 +110,54 @@
                                 <tr>
                                     <td>
                                         <div class="d-flex align-items-center">
+                                            {% if p.imagen %}
                                             <img src="{{ url_for('static', filename='uploads/' + p.imagen) }}" 
                                                  class="rounded me-3" width="50" height="50" 
-                                                 alt="{{ p.nombre_producto }}">
+                                                 alt="{{ p.nombre_producto }}"
+                                                 onerror="this.style.display='none'">
+                                            {% endif %}
                                             <div>
                                                 <h6 class="mb-0">{{ p.nombre_producto }}</h6>
                                                 <small class="text-muted">{{ p.descripcion or 'Paquete de viaje completo' }}</small>
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="text-end align-middle">${{ p.precio }}</td>
+                                    <td>
+                                        <!-- MOSTRAR DETALLES DEL VIAJE SI EXISTEN -->
+                                        {% if p.detalles_viaje %}
+                                        <div class="viaje-detalles">
+                                            <p class="mb-1"><strong>👤 Pasajero:</strong> {{ p.detalles_viaje.nombre_completo }}</p>
+                                            <p class="mb-1"><strong>📅 Fechas:</strong> {{ p.detalles_viaje.fecha_salida }} al {{ p.detalles_viaje.fecha_regreso }}</p>
+                                            <p class="mb-1"><strong>👥 Viajeros:</strong> {{ p.detalles_viaje.adultos }} adultos, {{ p.detalles_viaje.ninos }} niños</p>
+                                            <p class="mb-1"><strong>✈️ Tipo:</strong> {{ p.detalles_viaje.tipo_viaje }} - {{ p.detalles_viaje.clase }}</p>
+                                            <p class="mb-1"><strong>📞 Contacto:</strong> {{ p.detalles_viaje.telefono }}</p>
+                                            <p class="mb-1"><strong>📧 Email:</strong> {{ p.detalles_viaje.email }}</p>
+                                            {% if p.detalles_viaje.comentarios %}
+                                            <p class="mb-0"><strong>💬 Comentarios:</strong> {{ p.detalles_viaje.comentarios }}</p>
+                                            {% endif %}
+                                        </div>
+                                        {% else %}
+                                        <small class="text-muted">Información del viaje no disponible</small>
+                                        {% endif %}
+                                    </td>
+                                    <td class="text-end align-middle">
+                                        <strong>${{ p.precio }}</strong>
+                                    </td>
                                 </tr>
                                 {% endfor %}
                             </tbody>
                             <tfoot class="table-light">
                                 <tr>
-                                    <td class="text-end"><strong>Subtotal:</strong></td>
-                                    <td class="text-end">${{ total }}</td>
+                                    <td colspan="2" class="text-end"><strong>Subtotal:</strong></td>
+                                    <td class="text-end">${{ "%.2f"|format(total) }}</td>
                                 </tr>
                                 <tr>
-                                    <td class="text-end"><strong>Impuestos (10%):</strong></td>
-                                    <td class="text-end">${{ (total|float * 0.1)|round(2) }}</td>
+                                    <td colspan="2" class="text-end"><strong>Impuestos (10%):</strong></td>
+                                    <td class="text-end">${{ "%.2f"|format(total|float * 0.1) }}</td>
                                 </tr>
                                 <tr>
-                                    <td class="text-end"><strong>Total:</strong></td>
-                                    <td class="text-end text-success fw-bold">${{ (total|float * 1.1)|round(2) }}</td>
+                                    <td colspan="2" class="text-end"><strong>Total:</strong></td>
+                                    <td class="text-end text-success fw-bold">${{ "%.2f"|format(total|float * 1.1) }}</td>
                                 </tr>
                             </tfoot>
                         </table>
@@ -76,8 +166,8 @@
                     <!-- Información Adicional -->
                     <div class="alert alert-info">
                         <h6>📦 Información de Entrega</h6>
-                        <p class="mb-2">Recibirás los detalles de tu viaje por correo electrónico en las próximas 24 horas.</p>
-                        <p class="mb-0">Para cualquier consulta, contacta a nuestro equipo de soporte: <strong>soporte@airsofttravel.com</strong></p>
+                        <p class="mb-2">Recibirás los detalles completos de tu viaje por correo electrónico en las próximas 24 horas.</p>
+                        <p class="mb-0">Para cualquier consulta, contacta a nuestro equipo de soporte: <strong>yanfristib@gmail.com</strong></p>
                     </div>
 
                     <!-- Pasos Siguientes -->
@@ -105,5 +195,21 @@
                         </div>
                     </div>
 
-                  
+                    <!-- Botones de acción -->
+                    <div class="text-center mt-5">
+                        <a href="{{ url_for('catalogo') }}" class="btn btn-primary btn-lg me-3">
+                            <i class="fas fa-globe me-2"></i>Explorar Más Destinos
+                        </a>
+                        <button onclick="window.print()" class="btn btn-outline-primary btn-lg">
+                            <i class="fas fa-print me-2"></i>Imprimir Factura
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+ 
+
 {% endblock %}
